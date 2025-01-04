@@ -1,6 +1,6 @@
 import fs from 'fs';
 import type { LogDatasource } from "../../domain/datasources/log.datasource";
-import { LogSeverityLevel, type LogEntity } from "../../domain/entities/log.entity";
+import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
 
 
 export class FileSystemDatasource implements LogDatasource{
@@ -36,20 +36,46 @@ export class FileSystemDatasource implements LogDatasource{
         
        const logAsJson = `${JSON.stringify(newLog)}\n`;
         
-        fs.appendFileSync( this.allLogsPath, `${JSON.stringify(newLog)}\n`);
+        fs.appendFileSync( this.allLogsPath, logAsJson );
 
         if(newLog.level === LogSeverityLevel.low) return;
+
         if(newLog.level === LogSeverityLevel.medium) { 
             fs.appendFileSync( this.mediumLogsPath, logAsJson)
         } else{
             fs.appendFileSync( this.highLogsPath, logAsJson );
-        }
-       
+        }       
        
     }
 
-    getLog(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
-        throw new Error("Method not implemented.");
+    private getLogsFromFile = ( path: string): LogEntity[] =>{
+
+        const content = fs.readFileSync( path, 'utf-8');
+
+        // const logs = content.split( '\n' ).map( log => LogEntity.fronJson(log) );
+        const logs = content.split( '\n' ).map( LogEntity.fronJson );
+
+        return logs;
+    };
+
+    async getLog(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
+       
+
+            switch ( severityLevel) {
+                case LogSeverityLevel.low:
+                    return this.getLogsFromFile(this.allLogsPath);
+
+                case LogSeverityLevel.medium:
+                    return this.getLogsFromFile(this.mediumLogsPath)
+            
+                case LogSeverityLevel.high:
+                    return this.getLogsFromFile(this.highLogsPath);                    
+            
+                default:
+                    throw new Error(`${severityLevel} not implemented`);
+            }
+            
+
     }
 
 

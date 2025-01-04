@@ -1,4 +1,6 @@
-# 05-noc
+# Proyecto NOC
+
+El objetivo es usar Arquitectura Limpia usando TypeScript
 
 To install dependencies:
 

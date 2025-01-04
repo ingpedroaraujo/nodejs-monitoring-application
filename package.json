@@ -3,9 +3,10 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun run --watch src/app.ts",
-    "build": "bun run rimraf ./dist && bun run tsc",
-    "start": "bun run build && bun run dist/app.js"
+    "dev": "bun --watch  src/app.ts",
+    "debug": "bun --watch --inspect-brk src/app.ts",
+    "build": "bun rimraf ./dist && bun tsc",
+    "start": "bun build && bun dist/app.js"
   },
   "author": "Ing Pedro Araujo",
   "version": "0.0.1",

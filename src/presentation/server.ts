@@ -16,18 +16,21 @@ export class Server{
        
         
         /// Enviar correo
-        const emailService = new EmailService();
-        emailService.sendEmail({
-            to: 'ing.pedroaraujo@live.com',
-            subject: 'Prueba de correo desde NodeJS',
-            html:`
-                <h3>Log del sistema NOC</h3>
-                <p>Aliquip proident in enim aute aliqua elit. Eu aliqua cupidatat anim mollit anim quis aliqua. Sunt sint enim in anim est amet deserunt. Pariatur laboris minim excepteur non veniam officia. Exercitation adipisicing ipsum consequat eiusmod sunt culpa magna excepteur anim. Id deserunt exercitation ullamco ad pariatur veniam id. Deserunt proident ullamco amet tempor laboris ex eiusmod nulla tempor cillum esse officia et.</p>
-                <p>Ver logs adjuntos</p>
-                `
+
+        // const emailService = new EmailService();
+        // emailService.sendEmailWithFileSystemLogs([ 'magnusgeek73@gmail.com', 'ing.pedroaraujo@live.com' ]);
+        
+        // emailService.sendEmail({
+        //     to: 'ing.pedroaraujo@live.com',
+        //     subject: 'Prueba de correo desde NodeJS',
+        //     html:`
+        //         <h3>Log del sistema NOC</h3>
+        //         <p>Aliquip proident in enim aute aliqua elit. Eu aliqua cupidatat anim mollit anim quis aliqua. Sunt sint enim in anim est amet deserunt. Pariatur laboris minim excepteur non veniam officia. Exercitation adipisicing ipsum consequat eiusmod sunt culpa magna excepteur anim. Id deserunt exercitation ullamco ad pariatur veniam id. Deserunt proident ullamco amet tempor laboris ex eiusmod nulla tempor cillum esse officia et.</p>
+        //         <p>Ver logs adjuntos</p>
+        //         `
 
 
-        });
+        // });
         
         // const url = 'http://localhost:3000';
 

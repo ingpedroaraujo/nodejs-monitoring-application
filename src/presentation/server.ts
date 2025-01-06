@@ -1,14 +1,27 @@
 import { envs } from "../config/plugins/envs.plugins";
+import { MailerPlugin } from "../config/plugins/mailer.plugins";
 import { CheckService } from "../domain/use-cases/checks/check-service";
+import { EmailService } from "../domain/use-cases/emails/email.service";
 import { FileSystemDatasource } from "../infraestructure/datasources/file-system.datasource";
 import { LogRepositoryImpl } from "../infraestructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
-import { EmailService } from "./email/email.service";
+
 
 const fileSystemLogRepository = new LogRepositoryImpl(
     new FileSystemDatasource(),
 );
 
+const emailPluginSetting = new MailerPlugin({
+    service: envs.MAILER_SERVICE,
+    auth: {
+      user: envs.MAILER_MAIL,
+      pass: envs.MAILER_SECRET_KEY,
+    },
+  });
+  
+ 
+
+const emailService = new EmailService( emailPluginSetting, fileSystemLogRepository );
 
 export class Server{
     public static start(){
@@ -16,6 +29,10 @@ export class Server{
        
         
         /// Enviar correo
+
+        // emailService.execute([ 'magnusgeekkkk@gmail.com', 'ing.pedroaraujo@live.com' ]);
+        emailService.execute('magnusgeekkkk@gmail.com');
+
 
         // const emailService = new EmailService();
         // emailService.sendEmailWithFileSystemLogs([ 'magnusgeek73@gmail.com', 'ing.pedroaraujo@live.com' ]);

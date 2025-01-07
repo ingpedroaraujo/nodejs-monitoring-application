@@ -27,11 +27,11 @@ async function main(){
     });
  
     await newLog.save();
-    console.log(newLog);  */
+    console.log(newLog); 
 
     const logs = await LogModel.find();
     console.log(logs);
-
+ */
 
 
     // console.log( envs );
